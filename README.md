@@ -218,4 +218,4 @@ aws eks describe-cluster --name <CLUSTER_NAME> --region <AWS_REGION>
 
 ---
 
-👩‍💻 Author: *Your Name*  – DevOps Engineer
+👩‍💻 Author: Tanushri Mujwar  – DevOps Engineer
