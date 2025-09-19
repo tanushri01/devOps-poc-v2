@@ -1,0 +1,49 @@
+name: Terraform EKS Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # allows manual trigger
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+jobs:
+  terraform:
+    name: Deploy EKS using Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Configure AWS credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Step 3: Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
+
+      # Step 4: Terraform Init
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./Infra  # Update to your Terraform folder
+
+      # Step 5: Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: ./Infra
+
+      # Step 6: Terraform Apply
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+        working-directory: ./Infra
