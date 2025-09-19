@@ -6,8 +6,6 @@ This repository demonstrates a complete **Python + AWS** DevOps solution:
 - Docker + Docker Compose for local development
 - GitHub Actions CI to build & push Docker images
 - Terraform for provisioning AWS (VPC, EKS, RDS)
-- Helm charts to deploy on EKS
-- Prometheus monitoring and alert rules
 
 > This README contains **explicit step-by-step commands** for each stage (local dev, CI, AWS infra, deployment, monitoring, and cleanup). Replace placeholders (like `<DOCKERHUB_USERNAME>`, `<RDS_ENDPOINT>`, and `<AWS_REGION>`) with your values.
 
@@ -31,15 +29,12 @@ unzip awscliv2.zip && sudo ./aws/install
 # Install kubectl
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
-# Install Helm
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
 ### macOS (Homebrew)
 ```bash
 brew update
-brew install python docker docker-compose terraform awscli kubectl helm
+brew install python docker docker-compose terraform awscli kubectl 
 ```
 
 ### Docker (start & enable)
@@ -62,7 +57,7 @@ ls -la
 ---
 
 ## 2) Local development — Docker Compose (quick start)
-This runs Postgres + the FastAPI app locally.
+This runs mysql + the FastAPI app locally.
 
 ```bash
 # Build and start containers
