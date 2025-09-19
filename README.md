@@ -7,7 +7,7 @@ This repository demonstrates a complete **Python + AWS** DevOps solution:
 * FastAPI CRUD app backed by **MySQL**
 * Docker + Docker Compose for local development
 * Build & Push Docker images to Docker Hub
-* Terraform for provisioning AWS (VPC, EKS, RDS MySQL)
+* Terraform for provisioning AWS (VPC, EKS, MySQL)
 * Kubernetes deployment to AWS EKS
 
 This README contains **explicit step-by-step commands**. Replace placeholders like `<DOCKERHUB_USERNAME>`, `<AWS_REGION>`, and `<DB_PASSWORD>` with your values.
@@ -117,7 +117,7 @@ docker push <DOCKERHUB_USERNAME>/devops-app:latest
 
 ---
 
-## 4️⃣ Terraform — Provision AWS (EKS + RDS MySQL)
+## 4️⃣ Terraform — Provision AWS EKS
 
 Ensure AWS CLI is configured:
 
@@ -130,14 +130,14 @@ Run Terraform:
 ```bash
 cd terraform
 terraform init
-terraform plan -var="db_password=<DB_PASSWORD>"
-terraform apply -var="db_password=<DB_PASSWORD>" -auto-approve
+terraform plan 
+terraform apply -auto-approve
 ```
 
 Outputs include:
 
 * **EKS Cluster Name**
-* **RDS MySQL Endpoint**
+
 
 ---
 
@@ -194,7 +194,7 @@ kubectl delete -f k8s-deployment.yaml
 
 ```bash
 cd terraform
-terraform destroy -var="db_password=<DB_PASSWORD>" -auto-approve
+terraform destroy -auto-approve
 ```
 
 ---
